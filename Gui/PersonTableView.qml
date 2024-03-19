@@ -14,10 +14,39 @@ Page {
 
     footer: Row {
         Button{
-            text: qsTr("Add")
+            id: buttonAddDefault
+            text: qsTr("Add Default")
             onClicked: {
-                console.log("Add person")
+                console.log("Add default person")
                 modelPersonTable.addPerson()
+            }
+
+            // Component.onCompleted: {
+            //     buttonAdd.onClicked.connect(modelPersonTable.addPerson)
+            // }
+        }
+        Button{
+            id: buttonAddNameBirthdate
+            text: qsTr("Add Name/Birthdate")
+            onClicked: {
+                // TODO: fetch name and birthdate from UI
+                const name = "Dupont"
+                const birthdate = new Date()
+                console.log("Add person with name and birthdate:", name, birthdate)
+                modelPersonTable.addPerson(name, birthdate)
+            }
+        }
+
+        Button{
+            id: buttonAddPerson
+            text: qsTr("Add Name/Birthdate")
+            onClicked: {
+                // TODO: fetch name and birthdate from UI
+                const name = "Dupont"
+                const birthdate = new Date()
+                const person = modelPersonTable.createPerson(name, birthdate)
+                console.log("Add person created by qml:", person)
+                //modelPersonTable.addPerson(name, birthdate)
             }
         }
         Button{
@@ -58,5 +87,19 @@ Page {
             text: display.toLocaleDateString(Locale.ShortFormat)
         }
     }
+
+    // NB: need to be a QObject
+    // PersonM {
+    //     name: "Dupont"
+    //     birthdate:  new Date()
+    // }
+
+    // Connections{
+    //     target: buttonAdd
+    //     function onClicked()  {
+    //         console.log("Add person")
+    //         modelPersonTable.addPerson()
+    //     }
+    // }
 
 }

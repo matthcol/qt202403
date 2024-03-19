@@ -23,4 +23,7 @@ public:
 public slots:
     // CRUD methods
     void addPerson();
+    void addPerson(const QString& name, const QDate& birthdate);
+    void addPerson(const PersonM& person);
+    PersonM createPerson(const QString& name, const QDate& birthdate);
 };

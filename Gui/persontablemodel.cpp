@@ -33,7 +33,7 @@ QVariant PersonTableModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole) {
         switch (index.column()){
         case 0:
-            return m_persons[index.row()].name().toString();
+            return m_persons[index.row()].name();
         case 1:
             return m_persons[index.row()].birthdate();
         }
@@ -74,9 +74,29 @@ bool PersonTableModel::setData(const QModelIndex &index, const QVariant &value, 
 
 void PersonTableModel::addPerson()
 {
-    qDebug() << "model: addPerson";
+    qDebug() << "model: addPerson()";
     beginInsertRows(QModelIndex(), m_persons.size(), m_persons.size());
     PersonM newPerson("Another Doe", QDate(2000,1,1));
     m_persons.append(newPerson); // copy
     endInsertRows();
+}
+
+void PersonTableModel::addPerson(const QString &name, const QDate &birthdate)
+{
+    qDebug() << "model: addPerson(name, birthdate):"
+             << name << "," << birthdate;
+    beginInsertRows(QModelIndex(), m_persons.size(), m_persons.size());
+    PersonM newPerson(name, birthdate);
+    m_persons.append(newPerson); // copy
+    endInsertRows();
+}
+
+void PersonTableModel::addPerson(const PersonM &person)
+{
+
+}
+
+PersonM PersonTableModel::createPerson(const QString &name, const QDate &birthdate)
+{
+    return PersonM(name, birthdate);
 }

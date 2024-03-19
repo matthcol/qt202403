@@ -9,12 +9,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-
     // model
     //std::shared_ptr<PersonTableModel>
     PersonTableModel* model_ptr(new PersonTableModel());
     model_ptr->loadData();
-
     QQmlApplicationEngine engine;
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("modelPersonTable", model_ptr);

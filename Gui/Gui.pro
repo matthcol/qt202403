@@ -7,7 +7,9 @@ QT += quick
 SOURCES += \
         main.cpp \
         persontablemodel.cpp \
-        personm.cpp
+        personm.cpp \
+        persontreemodel.cpp \
+        persontreenode.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,5 +26,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     persontablemodel.h \
-    personm.h
+    personm.h \
+    persontreemodel.h \
+    persontreenode.h
 

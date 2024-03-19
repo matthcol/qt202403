@@ -7,7 +7,7 @@ PersonM::PersonM(const QString &name, const QDate &birthdate) :
     m_birthdate(birthdate)
 {}
 
-QStringView PersonM::name() const
+const QString& PersonM::name() const
 {
     return m_name; // implicit conversion to QStringView
 }
