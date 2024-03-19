@@ -64,6 +64,11 @@ Page {
         anchors.fill: parent
         columnSpacing: 5
         model: modelPersonTable
+
+        // NB: without delegateChooser use a Loader to return
+        // the delegate of your choice
+        // but you have to retrieve columnIndex (with a customRole)
+        // https://forum.qt.io/topic/123543/tableview-with-different-delegates-for-its-columns-qtquick-2-15/4
         delegate: DelegateChooser{
             DelegateChoice { column: 0 ; delegate: delegateEditableText }
             DelegateChoice { column: 1 ; delegate: delegateDate }

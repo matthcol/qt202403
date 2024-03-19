@@ -11,12 +11,14 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     // model
     qRegisterMetaType<PersonM>();
-    //std::shared_ptr<PersonTableModel>
-    PersonTableModel* model_ptr(new PersonTableModel());
-    model_ptr->loadData();
+    // std::shared_ptr<PersonTableModel> model_ptr(new PersonTableModel());
+    // PersonTableModel* model_ptr(new PersonTableModel());
+    // model_ptr->loadData();
+    PersonTableModel model;
+    model.loadData();
     QQmlApplicationEngine engine;
     QQmlContext* context = engine.rootContext();
-    context->setContextProperty("modelPersonTable", model_ptr);
+    context->setContextProperty("modelPersonTable", &model); // model_ptr);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine,
