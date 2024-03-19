@@ -24,7 +24,7 @@ int PersonTableModel::columnCount(const QModelIndex &parent) const
 
 QVariant PersonTableModel::data(const QModelIndex &index, int role) const
 {
-    qDebug() << "model data called on index:"
+    qDebug() << "model: data called on index:"
              << index
              << "and role:"
              << role;
@@ -35,7 +35,7 @@ QVariant PersonTableModel::data(const QModelIndex &index, int role) const
         case 0:
             return m_persons[index.row()].name().toString();
         case 1:
-            return m_persons[index.row()].birthdate().toString();
+            return m_persons[index.row()].birthdate();
         }
     }
     return QVariant();
@@ -44,7 +44,7 @@ QVariant PersonTableModel::data(const QModelIndex &index, int role) const
 
 QVariant PersonTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    qDebug() << "model header data called on section:"
+    qDebug() << "model: header data called on section:"
              << section
              << "and role:"
              << role;
@@ -55,4 +55,28 @@ QVariant PersonTableModel::headerData(int section, Qt::Orientation orientation, 
         return QStringLiteral("Column %1").arg(section);
     else
         return QStringLiteral("Row %1").arg(section);
+}
+
+bool PersonTableModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    qDebug() << "model: setData called on index:"
+             << index
+             << ", role:"
+             << role
+             << ", value:"
+             << value;
+    if (!index.isValid() || index.column() != 0 || role != Qt::EditRole) return false;
+    // set name with new value
+    m_persons[index.row()].setName(value.toString());
+    qDebug() << "model: person modified:" << m_persons[index.row()];
+    return true;
+}
+
+void PersonTableModel::addPerson()
+{
+    qDebug() << "model: addPerson";
+    beginInsertRows(QModelIndex(), m_persons.size(), m_persons.size());
+    PersonM newPerson("Another Doe", QDate(2000,1,1));
+    m_persons.append(newPerson); // copy
+    endInsertRows();
 }
