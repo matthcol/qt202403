@@ -79,6 +79,7 @@ void PersonTableModel::addPerson()
     PersonM newPerson("Another Doe", QDate(2000,1,1));
     m_persons.append(newPerson); // copy
     endInsertRows();
+    emit personAdded(newPerson);
 }
 
 void PersonTableModel::addPerson(const QString &name, const QDate &birthdate)
@@ -89,11 +90,17 @@ void PersonTableModel::addPerson(const QString &name, const QDate &birthdate)
     PersonM newPerson(name, birthdate);
     m_persons.append(newPerson); // copy
     endInsertRows();
+    emit personAdded(newPerson);
 }
 
 void PersonTableModel::addPerson(const PersonM &person)
 {
-
+    qDebug() << "model: addPerson(name, birthdate):"
+             << person;
+    beginInsertRows(QModelIndex(), m_persons.size(), m_persons.size());
+    m_persons.append(person); // copy
+    endInsertRows();
+    emit personAdded(person);
 }
 
 PersonM PersonTableModel::createPerson(const QString &name, const QDate &birthdate)

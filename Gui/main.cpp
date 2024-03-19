@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
     // model
+    qRegisterMetaType<PersonM>();
     //std::shared_ptr<PersonTableModel>
     PersonTableModel* model_ptr(new PersonTableModel());
     model_ptr->loadData();

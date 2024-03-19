@@ -42,11 +42,15 @@ Page {
             text: qsTr("Add Name/Birthdate")
             onClicked: {
                 // TODO: fetch name and birthdate from UI
-                const name = "Dupont"
+                const name = "Dupond"
                 const birthdate = new Date()
                 const person = modelPersonTable.createPerson(name, birthdate)
-                console.log("Add person created by qml:", person)
-                //modelPersonTable.addPerson(name, birthdate)
+                console.log("Add person created by qml:",
+                    person,
+                    person.name,
+                    person.birthdate
+                )
+                modelPersonTable.addPerson(person)
             }
         }
         Button{
@@ -102,4 +106,16 @@ Page {
     //     }
     // }
 
+    function logAdded(person){
+        console.log("person added with sucess: ", person)
+    }
+
+    // Connections{
+    //     target:  modelPersonTable
+    //     function onPersonAdded(person){
+    //         logAdded(person)
+    //     }
+    // }
+
+    Component.onCompleted: modelPersonTable.onPersonAdded.connect(logAdded)
 }

@@ -26,4 +26,7 @@ public slots:
     void addPerson(const QString& name, const QDate& birthdate);
     void addPerson(const PersonM& person);
     PersonM createPerson(const QString& name, const QDate& birthdate);
+
+signals:
+    void personAdded(const PersonM& person);
 };
