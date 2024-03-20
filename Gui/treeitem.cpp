@@ -1,8 +1,8 @@
 #include "treeitem.h"
 
 //! [0]
-TreeItem::TreeItem(QVariantList data, TreeItem *parent)
-    : m_itemData(std::move(data)), m_parentItem(parent)
+TreeItem::TreeItem(PersonM* data, TreeItem *parent)
+    : m_itemData(data), m_parentItem(parent)
 {}
 //! [0]
 
@@ -30,14 +30,14 @@ int TreeItem::childCount() const
 //! [4]
 int TreeItem::columnCount() const
 {
-    return int(m_itemData.count());
+    return 1;
 }
 //! [4]
 
 //! [5]
-QVariant TreeItem::data(int column) const
+const PersonM* TreeItem::data(int column) const
 {
-    return m_itemData.value(column);
+    return m_itemData;
 }
 //! [5]
 

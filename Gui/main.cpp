@@ -3,6 +3,8 @@
 #include <QQmlContext>
 #include "persontablemodel.h"
 #include "treemodel.h"
+#include "treeitem.h"
+#include <memory>
 
 void logPersonAdded(const PersonM& person){
     qDebug() << "main log: person added:" << person;
@@ -13,6 +15,25 @@ QString textModel(){
            + QString("  Launching Designer                  Running the Qt Designer application\n")
            + QString("      Designer                        Running the Qt Designer application\n")
            + QString("  The User Interface                  How to interact with Qt Designer\n");
+}
+
+std::unique_ptr<TreeItem> personTreeData(){
+    PersonM* person1 = new PersonM("John Doe", QDate(1950,5, 6));
+    PersonM* person21 = new PersonM("Jane Doe", QDate(1970,5, 6));
+    PersonM* person22 = new PersonM("Emil Doe", QDate(1971,5, 6));
+    std::unique_ptr<TreeItem> root = std::make_unique<TreeItem>(nullptr);
+    TreeItem* parent = root.get();
+    std::unique_ptr<TreeItem> firstPerson = std::make_unique<TreeItem>(
+        person1, parent);
+    parent = firstPerson.get();
+    firstPerson->appendChild(std::make_unique<TreeItem>(
+        person21, parent
+        ));
+    firstPerson->appendChild(std::make_unique<TreeItem>(
+        person22, parent
+        ));
+    root->appendChild(std::move(firstPerson));
+    return root;
 }
 
 int main(int argc, char *argv[])
@@ -29,7 +50,8 @@ int main(int argc, char *argv[])
     PersonTableModel modelTable;
     modelTable.loadData();
     // model 2
-    TreeModel modelTree(textModel());
+    // TreeModel modelTree(textModel()); // fromindented text
+    TreeModel modelTree(personTreeData());
     QQmlApplicationEngine engine;
     QQmlContext* context = engine.rootContext();
     context->setContextProperty("modelPersonTable", &modelTable); // model_ptr);

@@ -16,7 +16,7 @@ class TreeModel : public QAbstractItemModel
 public:
     Q_DISABLE_COPY_MOVE(TreeModel)
 
-    explicit TreeModel(const QString &data, QObject *parent = nullptr);
+    explicit TreeModel(std::unique_ptr<TreeItem> data, QObject *parent = nullptr);
     ~TreeModel() override;
 
     QVariant data(const QModelIndex &index, int role) const override;
@@ -30,7 +30,7 @@ public:
     int columnCount(const QModelIndex &parent = {}) const override;
 
 private:
-    static void setupModelData(const QList<QStringView> &lines, TreeItem *parent);
+    // static void setupModelData(const QList<QStringView> &lines, TreeItem *parent);
 
     std::unique_ptr<TreeItem> rootItem;
 };
