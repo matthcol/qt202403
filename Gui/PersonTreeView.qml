@@ -1,8 +1,8 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Controls.Material
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
 // https://doc.qt.io/qt-5/qtquickcontrols2-material.html
-import Qt.labs.qmlmodels
+import Qt.labs.qmlmodels 1.15
 
 Page {
 
