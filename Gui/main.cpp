@@ -11,7 +11,8 @@ void logPersonAdded(const PersonM& person){
 QString textModel(){
     return QString("Getting Started                         How to familiarize yourself with Qt Designer\n")
            + QString("  Launching Designer                  Running the Qt Designer application\n")
-           + QString(" The User Interface                  How to interact with Qt Designer\n");
+           + QString("      Designer                        Running the Qt Designer application\n")
+           + QString("  The User Interface                  How to interact with Qt Designer\n");
 }
 
 int main(int argc, char *argv[])
@@ -21,8 +22,8 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
     // model 1
-    qRegisterMetaType<PersonM>(); // need by QT5, QT6 => QML_VALUE_TYPE(person)
-    // std::shared_ptr<PersonTableModel> model_ptr(new PersonTableModel());
+    // qRegisterMetaType<PersonM>(); // need by QT5, QT6 => QML_VALUE_TYPE(person)
+    // model in direct mode or classic pointer (no smart pointers)
     // PersonTableModel* model_ptr(new PersonTableModel());
     // model_ptr->loadData();
     PersonTableModel modelTable;
