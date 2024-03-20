@@ -4,6 +4,10 @@
 #include "persontablemodel.h"
 #include "treemodel.h"
 
+void logPersonAdded(const PersonM& person){
+    qDebug() << "main log: person added:" << person;
+}
+
 QString textModel(){
     return QString("Getting Started                         How to familiarize yourself with Qt Designer\n")
            + QString("  Launching Designer                  Running the Qt Designer application\n")
@@ -17,7 +21,7 @@ int main(int argc, char *argv[])
 #endif
     QGuiApplication app(argc, argv);
     // model 1
-    // qRegisterMetaType<PersonM>();
+    qRegisterMetaType<PersonM>(); // need by QT5, QT6 => QML_VALUE_TYPE(person)
     // std::shared_ptr<PersonTableModel> model_ptr(new PersonTableModel());
     // PersonTableModel* model_ptr(new PersonTableModel());
     // model_ptr->loadData();
@@ -30,6 +34,12 @@ int main(int argc, char *argv[])
     context->setContextProperty("modelPersonTable", &modelTable); // model_ptr);
     context->setContextProperty("modelPersonTree", &modelTree);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
+
+    // connections
+    QObject::connect(
+        &modelTable,
+        &PersonTableModel::personAdded,
+        &logPersonAdded);
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,

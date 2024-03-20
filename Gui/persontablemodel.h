@@ -21,6 +21,8 @@ public:
     // unused with QML views by default:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
+    static const int LAST_COLUMN;
+    static const int COUNT_COLUMN;
 public slots:
     // CRUD methods
     void addPerson();

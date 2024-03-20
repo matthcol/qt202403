@@ -3,6 +3,7 @@
 
 #include <QVariant>
 #include <QList>
+#include <memory>
 
 //! [0]
 class TreeItem

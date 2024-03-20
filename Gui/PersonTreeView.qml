@@ -18,9 +18,9 @@ Page {
         columnSpacing: 5
         model: modelPersonTree
 
-        delegate: //TreeViewDelegate{}
-                  Label{
-            text: display
-        }
+        delegate: TreeViewDelegate{}
+        //           Label{
+        //     text: display
+        // }
     }
 }

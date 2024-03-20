@@ -2,6 +2,9 @@
 #include <QDebug>
 #include <QDate>
 
+const int PersonTableModel::COUNT_COLUMN = 2;
+const int PersonTableModel::LAST_COLUMN = PersonTableModel::COUNT_COLUMN -1;
+
 PersonTableModel::PersonTableModel(QObject* parent):
     QAbstractTableModel(parent)
 {}
@@ -19,7 +22,7 @@ int PersonTableModel::rowCount(const QModelIndex &parent) const
 
 int PersonTableModel::columnCount(const QModelIndex &parent) const
 {
-    return 2;
+    return PersonTableModel::COUNT_COLUMN;
 }
 
 QVariant PersonTableModel::data(const QModelIndex &index, int role) const
@@ -68,6 +71,12 @@ bool PersonTableModel::setData(const QModelIndex &index, const QVariant &value, 
     if (!index.isValid() || index.column() != 0 || role != Qt::EditRole) return false;
     // set name with new value
     m_persons[index.row()].setName(value.toString());
+    // choose impact of modification: whole line, only this cell, ...
+    emit dataChanged(
+        createIndex(index.row(), 0), // first column
+        createIndex(index.row(), PersonTableModel::LAST_COLUMN), // last column
+        {Qt::DisplayRole, Qt::DecorationRole} // all roles impacted by this modification
+    );
     qDebug() << "model: person modified:" << m_persons[index.row()];
     return true;
 }
@@ -107,3 +116,5 @@ PersonM PersonTableModel::createPerson(const QString &name, const QDate &birthda
 {
     return PersonM(name, birthdate);
 }
+
+
