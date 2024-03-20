@@ -2,7 +2,8 @@
 #include <QAbstractTableModel>
 #include "personm.h"
 
-class PersonTableModel: public QAbstractTableModel
+class PersonTableModel:
+     public QAbstractTableModel
 {
     Q_OBJECT
 private:

@@ -4,5 +4,6 @@
         <file>DemoListView.qml</file>
         <file>PersonTableView.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>PersonTreeView.qml</file>
     </qresource>
 </RCC>

@@ -1,12 +1,13 @@
 #pragma once
 #include <QObject>
 #include <QAbstractItemModel>
+#include <persontreenode.h>
 
 class PersonTreeModel: public QAbstractItemModel
 {
     Q_OBJECT
 public:
-    explicit PersonTreeModel(QObject* parent=nullptr);
+    explicit PersonTreeModel(PersonTreeNode_ptr root, QObject* parent=nullptr);
     virtual ~PersonTreeModel() = default;
 
     // QAbstractItemModel interface
@@ -15,6 +16,8 @@ public:
     int rowCount(const QModelIndex &parent) const override;
     int columnCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
+private:
+    PersonTreeNode_ptr m_root;
 };
 
 

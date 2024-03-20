@@ -15,7 +15,7 @@ Page {
     footer: Row {
         Button{
             id: buttonAddDefault
-            text: qsTr("Add Default")
+            text: qsTr("Add 1")
             onClicked: {
                 console.log("Add default person")
                 modelPersonTable.addPerson()
@@ -27,7 +27,7 @@ Page {
         }
         Button{
             id: buttonAddNameBirthdate
-            text: qsTr("Add Name/Birthdate")
+            text: qsTr("Add 2")
             onClicked: {
                 // TODO: fetch name and birthdate from UI
                 const name = "Dupont"
@@ -39,7 +39,7 @@ Page {
 
         Button{
             id: buttonAddPerson
-            text: qsTr("Add Name/Birthdate")
+            text: qsTr("Add 3")
             onClicked: {
                 // TODO: fetch name and birthdate from UI
                 const name = "Dupond"

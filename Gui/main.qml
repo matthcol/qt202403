@@ -18,6 +18,9 @@ ApplicationWindow {
         TabButton{
             text: qsTr("TableView c++")
         }
+        TabButton{
+            text: qsTr("TreeView c++")
+        }
     }
 
     StackLayout {
@@ -25,5 +28,6 @@ ApplicationWindow {
         currentIndex: bar.currentIndex
         DemoListView{}
         PersonTableView{}
+        PersonTreeView{}
     }
 }
