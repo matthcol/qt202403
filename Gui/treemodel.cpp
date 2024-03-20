@@ -30,17 +30,31 @@ int TreeModel::columnCount(const QModelIndex &parent) const
 //! [3]
 QVariant TreeModel::data(const QModelIndex &index, int role) const
 {
-    if (!index.isValid() || role != Qt::DisplayRole)
+    qDebug() << "model tree: data called on index:"
+             << index
+             << "and role:"
+             << role;
+    if (!index.isValid())
         return {};
+    // access underlying data behind TreeItem
+    const auto *person = static_cast<const TreeItem*>(index.internalPointer())
+                                 ->data(0);
+    switch (role) {
+    case Qt::DisplayRole: return person->name();
+    case Qt::StatusTipRole:
+        return (QDate::currentDate().year() - person->birthdate().year()) > 50;
+    case AgeRole:
+        return (QDate::currentDate().year() - person->birthdate().year());
+    }
 
-    const auto *item = static_cast<const TreeItem*>(index.internalPointer());
-    return item->data(index.column())->name();
+    return {};
 }
 //! [3]
 
 //! [4]
 Qt::ItemFlags TreeModel::flags(const QModelIndex &index) const
 {
+    // customizable
     return index.isValid()
                ? QAbstractItemModel::flags(index) : Qt::ItemFlags(Qt::NoItemFlags);
 }
@@ -140,3 +154,22 @@ int TreeModel::rowCount(const QModelIndex &parent) const
 //         }
 //     }
 // }
+
+
+QHash<int, QByteArray> TreeModel::roleNames() const
+{
+    return {
+        {Qt::DisplayRole, "display"},
+        {Qt::EditRole, "edit"},
+        {Qt::StatusTipRole, "statusTip"},
+        {Role::AgeRole, "age"},
+        {Role::LevelRole, "level"}
+    };
+}
+
+QVariant TreeModel::getPerson(const QModelIndex &index)
+{
+    if (!index.isValid()) return {};
+    auto *person = static_cast<const TreeItem*>(index.internalPointer())->data(0);
+    return QVariant::fromValue(*person);
+}
