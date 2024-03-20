@@ -8,8 +8,8 @@ SOURCES += \
         main.cpp \
         persontablemodel.cpp \
         personm.cpp \
-        persontreemodel.cpp \
-        persontreenode.cpp
+        treeitem.cpp \
+        treemodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,6 +27,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     persontablemodel.h \
     personm.h \
-    persontreemodel.h \
-    persontreenode.h
+    treeitem.h \
+    treemodel.h
 
